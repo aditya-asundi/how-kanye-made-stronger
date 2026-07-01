@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Soundboard</title>
+<style>
+  :root {
+    --bg: #fafafa;
+    --text: #1a1a1a;
+    --button-bg: #d15d95;
+    --button-border: #ddd;
+    --button-hover: #ba665b;
+    --button-active: #ba665b;
+    --accent: #333;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #e8742f 0%, #b5466a 18%, #7a3a7a 38%, #5a3370 60%, #4a2d63 80%, #3d2b56 100%);
+    background-attachment: fixed;
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+
+  .board {
+    display: flex;
+    gap: 48px;
+    padding: 40px;
+  }
+
+  .column {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 220px;
+  }
+
+  button.sound-btn {
+    padding: 18px 20px;
+    font-size: 16px;
+    font-weight: 500;
+    background: var(--button-bg);
+    border: 1px solid var(--button-border);
+    border-radius: 10px;
+    color: var(--accent);
+    cursor: pointer;
+    transition: background 0.15s ease, transform 0.05s ease;
+  }
+
+  button.sound-btn:hover {
+    background: var(--button-hover);
+  }
+
+  button.sound-btn:active {
+    background: var(--button-active);
+    transform: scale(0.98);
+  }
+
+  button.sound-btn.playing {
+    border-color: var(--accent);
+  }
+</style>
+</head>
+<body>
+
+  
+
+<div class="board">
+  <div class="column">
+    <button class="sound-btn" data-src="audio/work it.wav">WORK IT</button>
+    <button class="sound-btn" data-src="audio/do it.wav">DO IT</button>
+    <button class="sound-btn" data-src="audio/harder.wav">HARDER</button>
+    <button class="sound-btn" data-src="audio/faster.wav">FASTER</button>
+    
+    <button class="sound-btn" data-src="audio/work it.wav">WORK IT</button>
+    <button class="sound-btn" data-src="audio/do it.wav">DO IT</button>
+    <button class="sound-btn" data-src="audio/harder.wav">HARDER</button>
+    <button class="sound-btn" data-src="audio/faster.wav">FASTER</button>
+    
+  </div>
+  <div class="column">
+    <button class="sound-btn" data-src="audio/make it.wav">MAKE IT</button>
+    <button class="sound-btn" data-src="audio/makes us.wav">MAKES US</button>
+    <button class="sound-btn" data-src="audio/better.wav">BETTER</button>
+    <button class="sound-btn" data-src="audio/stronger.wav">STRONGER</button>
+
+    <button class="sound-btn" data-src="audio/make it.wav">MAKE IT</button>
+    <button class="sound-btn" data-src="audio/makes us.wav">MAKES US</button>
+    <button class="sound-btn" data-src="audio/better.wav">BETTER</button>
+    <button class="sound-btn" data-src="audio/stronger.wav">STRONGER</button>
+  </div>
+</div>
+
+
+
+
+<script>
+  const buttons = document.querySelectorAll('.sound-btn');
+
+  buttons.forEach(btn => {
+    const audio = new Audio(btn.dataset.src);
+
+    btn.addEventListener('click', () => {
+      audio.currentTime = 0;
+      audio.play().catch(err => {
+        console.error('Could not play audio:', err);
+      });
+    });
+
+    audio.addEventListener('play', () => btn.classList.add('playing'));
+    audio.addEventListener('pause', () => btn.classList.remove('playing'));
+    audio.addEventListener('ended', () => btn.classList.remove('playing'));
+  });
+</script>
+
+</body>
+</html>
